@@ -17,7 +17,7 @@ function App() {
         >
           Learn React
         </a>
-          <h1>Welcome to Amazon Elastic Container.</h1>
+          <h1>Welcome to Amazon ECS.</h1>
       </header>
     </div>
   );
