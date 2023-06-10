@@ -2,11 +2,11 @@
 import { Filters } from "./Filters";
 import { Todos } from "./Todos";
 import { CreateTodo } from "./CreateTodo";
+import "./todo.css";
 
 
 
-
-export const Valtio = () => (
+export const ValtioTodo = () => (
   <main>
     <h1>
       To-do List{" "}

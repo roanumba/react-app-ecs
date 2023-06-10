@@ -1,4 +1,4 @@
-import { valtioWrapper } from "../../components/valtion/model/ValtioUtil";
+import { valtioWrapper } from "../../components/valtio/model/ValtioUtil";
 
 export interface TestML {
     name: string;
@@ -23,9 +23,8 @@ const model = {
 }
 
 // const testModel= createContext(model);
-// export {testModel}
+const testModel = valtioWrapper(model);
+export {testModel}
 
 
 
-const prx = valtioWrapper(model);
-export const testModel = prx;

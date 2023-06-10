@@ -18,8 +18,7 @@ const getState = (model:any) => {
 
 };
 
-const valtioBuildReducers = (model:any, proxy:any) => {
- 
+export const valtioBuildReducers = (model:any, proxy:any) => {
     
     Object.keys(model).forEach((key) => {
         const type = getType(model[key]);
@@ -48,10 +47,19 @@ const valtioBuildReducers = (model:any, proxy:any) => {
 
 export const valtioWrapper = (model: any) => {
 
-    const valtioSubscribe = (watchList: any, listener: any) => {
+    const valtioSubscribe = (watchList: any, listener: any=null) => {
+        if (getType(watchList) === 'Function' && listener === null) {
+            listener = watchList;
+            watchList = Object.keys(model).filter((key) => {
+                const type = getType(model[key]);
+                return type !== 'Function' && type !== 'GeneratorFunction';
+            });
+        }
+        
         const watchType = getType(watchList);
+        const listenerType = getType(listener);
 
-        if (getType(listener) === 'Function' && (watchType === 'Array' || watchType === 'String')) {
+        if (listenerType === 'Function' && (watchType === 'Array' || watchType === 'String')) {
 
             const unsub = subscribe(proxyModel, () => {
                 let wList:string[]=[]
@@ -77,3 +85,4 @@ export const valtioWrapper = (model: any) => {
 
     return proxyModel;
 }
+

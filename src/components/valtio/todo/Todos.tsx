@@ -1,9 +1,12 @@
 import { useSnapshot } from "valtio";
-import { Status, store } from "./model/TodoModel";
+import { NewType, Status, store } from "./TodoModel";
+import { useEffect } from "react";
+import React from "react";
+import { useValtio } from "../model/useValtio";
 
 
 
-const removeTodo = (index: number) => {
+/* const removeTodo = (index: number) => {
     store.todos.splice(index, 1);
   };
   
@@ -11,10 +14,27 @@ const removeTodo = (index: number) => {
     const nextStatus = currentStatus === "pending" ? "completed" : "pending";
     store.todos[index].status = nextStatus;
   };
-  
+   */
+
+
 
 export const Todos = () => {
-    const snap = useSnapshot(store);
+    // const snap = useSnapshot(store);
+    const snap = useValtio(store) as NewType;
+/*     const [snap, setSnap] = React.useState<NewType>(store);
+    useEffect(() => {
+        const un = (store as any).subscribe((st: any) => {
+            setSnap(st);
+            console.log(`st-`, st);
+
+        });
+
+
+        return () => {
+            un();
+        };
+    } , []); */
+    console.log(`st-`, snap);
     return (
         <ul>
             {snap.todos
@@ -25,11 +45,11 @@ export const Todos = () => {
                             <span
                                 data-status={status}
                                 className="description"
-                                onClick={() => toggleDone(index, status)}
+                                onClick={() => store.toggleDone(index)}
                             >
                                 {description}
                             </span>
-                            <button className="remove" onClick={() => removeTodo(index)}>
+                            <button className="remove" onClick={() => store.removeTodo(index)}>
                                 x
                             </button>
                         </li>

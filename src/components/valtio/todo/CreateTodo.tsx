@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import { store } from "./model/TodoModel";
+import { store } from "./TodoModel";
 
-
+/* 
 const addTodo = (description: string) => {
     store.todos.push({
       description,
@@ -9,7 +9,7 @@ const addTodo = (description: string) => {
       id: Date.now()
     });
   };
-
+ */
 
 export const CreateTodo = () => {
     // const inputRef = useRef<HTMLInputElement>(null);
@@ -25,7 +25,7 @@ export const CreateTodo = () => {
              />
             <button
                 className="add"
-                onClick={() => addTodo(value)}
+                onClick={() => store.addTodo(value)}
             >
                 Add new
             </button>

@@ -18,7 +18,7 @@ export const LeftBar = (props: Props) => {
     const [count,setCount]=React.useState(0);
 
     useEffect(() => {
-          const un=testModel.subscribe("cnt",(st:any)=>{
+          const un=testModel.subscribe((st:any)=>{
                   setCount(st.cnt);
             }
             );
