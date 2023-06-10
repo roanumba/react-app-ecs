@@ -3,24 +3,30 @@
 import * as React from 'react';
 import { Box, Container, Grid, Paper } from '@mui/material';
 import { BaseBar } from './BaseBar';
-import { useTestModel } from '../../../context/TestModel';
+
 import { useEffect } from 'react';
+import { testModel } from '../../../context/models/TestML';
+import { subscribe } from 'valtio';
 
 interface Props {
 
 open: boolean;
 }
-
+// const ctx=testModel
 export const LeftBar = (props: Props) => {
-    const {testModel}=useTestModel();
+    // const {testModel}=useTestModel();
     const [count,setCount]=React.useState(0);
 
     useEffect(() => {
-          testModel.subscribe((st:any)=>{
-            console.log('LeftBar',st);
-                setCount(st.cnt);
+          const un=testModel.subscribe("cnt",(st:any)=>{
+                  setCount(st.cnt);
             }
             );
+            
+            return ()=>{
+                un();
+            }
+            
     }, []);
     return (
         <>

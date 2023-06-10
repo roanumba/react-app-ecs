@@ -5,19 +5,18 @@ import {
     Link,
     Outlet
 } from 'react-router-dom';
-import { GlobalContext } from '../../context/GlobalContext';
-import { useTestModel } from '../../context/TestModel';
-import { log } from 'console';
+import { testModel } from '../../context/models/TestML';
 
 
 
 export const Home = () => {
     const navigate=useNavigate();
-    const {testModel}=useTestModel();
+    // const {testModel}=useTestModel();
 
     useEffect(() => {
-           testModel.test=`test ${testModel.cnt++}`;
-            // console.log('Home',testModel);
+        //    testModel.test=`test ${testModel.cnt++}`;
+        testModel.inc()
+           
     }, []);
     
 

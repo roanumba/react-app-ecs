@@ -10,6 +10,7 @@ import { Footer } from './bars/Footer';
 import { LeftBar } from './bars/LeftBar';
 import { RightBar } from './bars/RightBar';
 import { Header } from './bars/Header';
+import { globalState } from '../../context/models/GlobalState';
 
 
 
@@ -43,9 +44,16 @@ export const Layout=()=> {
 
     // Listen to route changes
     useEffect(() => {
+      
+      const unsub=globalState.subscribe("navigator",(st:any)=>{
+            navigate(st.path,st.state);
+      });
+  
+    globalState.navigateTo({path:'/',state:{}});
 
-     navigate('/');
-
+    return ()=>{
+      unsub();
+    }
     }, []);
 
     useEffect(() => {
@@ -63,8 +71,10 @@ export const Layout=()=> {
         <ContentWrapper>
         <Button onClick={toggleSidebar}>Toggle Sidebar</Button>
         <Button  variant='outlined' onClick={()=>{
-            // history.push('/one');
+        
             navigate('/home/one');
+
+           
         }}>
           navigat to Home 1
         </Button>
