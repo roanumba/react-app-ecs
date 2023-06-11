@@ -1,4 +1,4 @@
-import { valtioWrapper } from "../../components/valtio/model/ValtioUtil";
+import { valtioWrapper } from "../valtio/ValtioUtil";
 
 export interface TestML {
     name: string;

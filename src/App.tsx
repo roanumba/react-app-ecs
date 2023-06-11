@@ -8,6 +8,9 @@ import { routes } from "./components/pages/Paths";
 
 
 
+export const globalRouteState = {
+  routeTo: (route: any) => { }
+};
 
 
 

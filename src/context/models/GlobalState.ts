@@ -1,12 +1,17 @@
-import { createContext } from "../StateMangement";
+import { valtioWrapper } from "../valtio/ValtioUtil";
 
 
-const model= {
-    navigator: {path: '#',state:{}},
-    navigateTo: (s:any, v:any) => {
-        s.navigator= {path: v.path, state: v.state};
+
+const model = {
+    navigator: { path: '#', state: {} },
+    busy:false,
+    setBusy:(s:any,v:boolean)=>{
+        s.busy=v;
         return s;
     }
+
 }
-const globalState = createContext(model);
-export {globalState}
+// const globalState = createContext(model);
+const globalState = valtioWrapper(model);
+
+export { globalState }

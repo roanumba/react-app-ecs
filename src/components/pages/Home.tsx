@@ -25,7 +25,7 @@ export const Home = () => {
         <Button variant='outlined' onClick={() => {
             setTimeout(() => {
                 //  history.push('/about');
-                navigate('/about');
+                testModel.routeTo('/about');
             }, 10);
         }}>
             navigat to About
@@ -33,7 +33,7 @@ export const Home = () => {
         <hr />
         <Button variant='outlined' onClick={() => {
             // history.push('/one');
-            navigate('/home/one');
+            testModel.routeTo('/home/one');
         }}>
             navigat to Home 1
         </Button>

@@ -11,6 +11,7 @@ import { LeftBar } from './bars/LeftBar';
 import { RightBar } from './bars/RightBar';
 import { Header } from './bars/Header';
 import { globalState } from '../../context/models/GlobalState';
+import { globalRouteState } from '../../App';
 
 
 
@@ -30,61 +31,59 @@ const ContentWrapper = styled('div')`
   padding: 16px;
 `;
 
-export const Layout=()=> {
-    const navigate=useNavigate();
- 
-    const [leftSidebarOpen, setleftSidebarOpen] = useState(true);
-    const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
+export const Layout = () => {
+  const navigate = useNavigate();
 
-    const toggleSidebar = () => {
-        setleftSidebarOpen(!leftSidebarOpen);
+  const [leftSidebarOpen, setleftSidebarOpen] = useState(true);
+  const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setleftSidebarOpen(!leftSidebarOpen);
+  };
+
+  const location = useLocation();
+
+
+  // Listen to route changes
+  useEffect(() => {
+
+    globalRouteState.routeTo = (route: any) => {
+      navigate(route.path, route.state);
     };
 
-    const location = useLocation();
+    globalState.routeTo('/');
 
-    // Listen to route changes
-    useEffect(() => {
-      
-      const unsub=globalState.subscribe("navigator",(st:any)=>{
-            navigate(st.path,st.state);
-      });
-  
-    globalState.navigateTo({path:'/',state:{}});
+  }, []);
 
-    return ()=>{
-      unsub();
-    }
-    }, []);
+  useEffect(() => {
+    // Your logic here to handle route changes
+    console.log('Route changed:', location.pathname);
 
-    useEffect(() => {
-      // Your logic here to handle route changes
-      console.log('Route changed:', location.pathname  );
-      
-    }, [location]);
-    
+  }, [location]);
+
   return (
     <LayoutWrapper>
       <CssBaseline />
-      <Header/>
+      <Header />
       <MainWrapper>
-        <LeftBar open={leftSidebarOpen}/>
+        <LeftBar open={leftSidebarOpen} />
         <ContentWrapper>
-        <Button onClick={toggleSidebar}>Toggle Sidebar</Button>
-        <Button  variant='outlined' onClick={()=>{
-        
+          <Button onClick={toggleSidebar}>Toggle Sidebar</Button>
+          <Button variant='outlined' onClick={() => {
+
             navigate('/home/one');
 
-           
-        }}>
-          navigat to Home 1
-        </Button>
-          <MainContent/>
+
+          }}>
+            navigat to Home 1
+          </Button>
+          <MainContent />
         </ContentWrapper>
-        <RightBar open={rightSidebarOpen}/>
+        <RightBar open={rightSidebarOpen} />
       </MainWrapper>
-    
-        <Footer/>
-    
+
+      <Footer />
+
     </LayoutWrapper>
   );
 }
